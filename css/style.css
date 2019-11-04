@@ -295,6 +295,12 @@ body {
   color: var(--main-color);
 }
 
+.product-card__unavailable {
+  font-size: 18px;
+  line-height: 1.11111;
+  font-weight: 500;
+}
+
 .store {
   -ms-grid-row: 2;
   -ms-grid-column: 2;

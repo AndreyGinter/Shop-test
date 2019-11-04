@@ -1,11 +1,11 @@
 //Количество продуктов на страницу. Используется как глобальная переменная
-const PRODUCTS_PER_PAGE = 15
+const PRODUCTS_PER_PAGE = 5
 
 //Контейнер с товарами
 const productsPlaceElement = document.getElementById('js-product')
 
 //Создание или загрузка базы на n объектов. Используется как глобальная переменная. Прошлое значение необходимо удалить из локалстораджа, чтобы записалось новое
-const productsDatabase = Database.loadDatabase(3000)
+const productsDatabase = Database.loadDatabase(20)
 
 //Глобальная переменная, показывающая используемый в данный момент массив
 let currentDatabase = productsDatabase
@@ -13,14 +13,14 @@ let currentDatabase = productsDatabase
 //Глобальная переменная с количеством страниц текущего массива
 let pageCount = pageCounter(currentDatabase)
 
+//Загрузить корзину
+Store.loadStore()
+
 //Показываем список товаров
 Database.makeProductsList()
 
 //Показываем пагинацию
 Pagination.makePagination()
-
-//Загрузить корзину
-Store.loadStore()
 
 //Вычислить количество, отображаемых страниц
 function pageCounter(arr) {

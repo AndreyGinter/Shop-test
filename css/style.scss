@@ -289,6 +289,12 @@ body {
                 color: var(--main-color);
             }
         }
+
+        &__unavailable {
+            font-size: 18px;
+            line-height: 1.11111;
+            font-weight: 500;
+        }
     }
 }
 

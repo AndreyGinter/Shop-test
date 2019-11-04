@@ -7,6 +7,9 @@
     //счётчик товаров в магазине
     let productsQuantity = 0
     let currentPrice
+    let lastProductId = 0
+
+    window.lastProductId = lastProductId
 
     // Добавляет метод, добавляющий товар
     Store.addProduct = function addProduct(event, id) {
@@ -23,6 +26,8 @@
 
         // Увеличение счетчика товаров в корзине
         productsQuantity++
+        // Запоминание айди последнего элемента
+        lastProductId = id
 
         target.classList.add('button--active')
 
@@ -45,7 +50,7 @@
 
             //Общая сумма и количество
             sumPrice(product.price);
-            showProductsQuantity(item)
+            Store.showProductsQuantity(item)
             showMobileQuantity()
             saveStore()
 
@@ -57,7 +62,7 @@
 
         document.getElementById('js-store-container').insertAdjacentHTML('beforeend', storeCard)
 
-        showProductsQuantity(item)
+        Store.showProductsQuantity(item)
         sumPrice(product.price);
         showMobileQuantity()
         saveStore()
@@ -79,6 +84,8 @@
 
         //Уменьшает количество товаров в магазине
         productsQuantity--
+        // Убираем отображение количества товара в карточке при загрузке
+        lastProductId = 0
 
         //Если существует несколько товаров одного типа
         if (quantity) {
@@ -130,9 +137,12 @@
             //Загрузка строки из локал стораджа
             const savedStore = JSON.parse(localStorage.getItem('Store'))
 
-            //Переназначение количества товаров и общей цены
+            //Переназначение количества товаров, общей цены, последнего купленного товара
             productsQuantity = savedStore.productsQuantity
             currentPrice = savedStore.totalPrice
+            lastProductId = savedStore.lastProductId
+
+            window.lastProductId = lastProductId
 
             //перебор массива с данными карточками и их выстраивание
             for (const item of savedStore.products) {
@@ -156,6 +166,8 @@
             document.querySelector('.js-total-sum').innerHTML = `${currentPrice} рублей`;
 
             showMobileQuantity()
+            
+
         }
 
     }
@@ -203,7 +215,7 @@
     }
 
     //Надпись о количестве товара
-    function showProductsQuantity(item) {
+    Store.showProductsQuantity = function showProductsQuantity(item) {
         //Отображается только для десктоп разрешения. Для остального — переходит в мобильный режим
         if (document.body.clientWidth > 1024) {
             const itemContainer = item.querySelector('.product-card__action')
@@ -278,7 +290,8 @@
         const savedStore = {
             'products': savedProducts,
             'totalPrice': currentPrice,
-            'productsQuantity': productsQuantity
+            'productsQuantity': productsQuantity,
+            'lastProductId': lastProductId
         }
 
         //загрузка в локал сторадж
