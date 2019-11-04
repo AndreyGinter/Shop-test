@@ -1,11 +1,11 @@
 //Количество продуктов на страницу. Используется как глобальная переменная
-const PRODUCTS_PER_PAGE = 5
+const PRODUCTS_PER_PAGE = 15
 
 //Контейнер с товарами
 const productsPlaceElement = document.getElementById('js-product')
 
 //Создание или загрузка базы на n объектов. Используется как глобальная переменная. Прошлое значение необходимо удалить из локалстораджа, чтобы записалось новое
-const productsDatabase = Database.loadDatabase(20)
+const productsDatabase = Database.loadDatabase(3000)
 
 //Глобальная переменная, показывающая используемый в данный момент массив
 let currentDatabase = productsDatabase
